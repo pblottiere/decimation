@@ -1,2 +1,5 @@
 *.laz
 *_pipe.json
+
+*.pyc
+*.png
