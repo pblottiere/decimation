@@ -1,0 +1,19 @@
+{
+  "pipeline":[
+    {
+      "type":"readers.las",
+      "filename":"LAZFILE"
+    },
+    {
+      "type":"filters.chipper",
+      "capacity":400
+    },
+    {
+      "type":"writers.pgpointcloud",
+      "connection":"host=127.0.0.1 dbname=test_decimation user=blottiere",
+      "table":"pa",
+      "compression":"laz",
+      "overwrite":"false"
+    }
+  ]
+}
