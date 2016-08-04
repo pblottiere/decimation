@@ -9,7 +9,11 @@ class Session(object):
         self.PG_PASSWORD=""
         self.PG_HOST="localhost"
         self.PG_PORT=5432
-        self.PG_NAME="test_decimation"
+        #self.PG_NAME="terrain"
+        #self.PG_NAME="terrain_midoc"
+        #self.PG_NAME="terrain_morton"
+        #self.PG_NAME="terrain"
+        self.PG_NAME="terrain_test_pdal_time"
         self.PG_TABLE = "pa"
         self.PG_COLUMN = "pa"
 

@@ -8,7 +8,7 @@ class Decimation(object):
     def __init__(self):
         self.db = session.Session()
 
-    def display_patchids(self, ids):
+    def display_patchids(self, ids, png, n=None, show=True):
         # init img
         fig,ax = plt.subplots(1)
 
@@ -30,14 +30,20 @@ class Decimation(object):
             pa = self.db.get_patch(id)
 
             # build points
-            mi = 0
-            ma = 0
-            for pt in pa:
-                mi = self.db.get_patch_min(id)
-                ma = self.db.get_patch_max(id)
+            mi = self.db.get_patch_min(id)
+            ma = self.db.get_patch_max(id)
 
-                xs.append(pt['x'] - minx)
-                ys.append(pt['y'] - miny)
+            if n == None:
+                for pt in pa:
+                    xs.append(pt['x'] - minx)
+                    ys.append(pt['y'] - miny)
+                print("Display n points ", len(pa))
+            else:
+                sub = pa[0:n]
+                for pt in sub:
+                    xs.append(pt['x'] - minx)
+                    ys.append(pt['y'] - miny)
+                print("Display n points ", len(sub))
 
             # build rectangle
             r = patches.Rectangle((mi['x'] - minx, mi['y']-miny),
@@ -51,10 +57,12 @@ class Decimation(object):
         plt.title('PC Patch')
         plt.xlabel('x')
         plt.ylabel('y')
-        plt.savefig('ScatterPlot.png')
-        plt.show()
+        plt.savefig(png)
 
-    def display_sorted_patchids(self, ids, n=None):
+        if show:
+            plt.show()
+
+    def display_sorted_patchids(self, ids, n=None, show=True):
 
         # init img
         fig,ax = plt.subplots(1)
@@ -108,7 +116,9 @@ class Decimation(object):
         plt.xlabel('x')
         plt.ylabel('y')
         plt.savefig('ScatterPlot.png')
-        plt.show()
+
+        if show == True:
+            plt.show()
 
     def _sorted_midoc(self, id):
 
